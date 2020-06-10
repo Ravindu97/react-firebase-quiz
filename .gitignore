@@ -2,9 +2,8 @@
 
 
 
-# Firebase connection
-./firebase.js
-
+# add firebase
+src/firebase.js
 
 
 # dependencies
