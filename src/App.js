@@ -6,11 +6,13 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
+import NavBar from "./NavBar";
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <NavBar />
         <div>
           <PrivateRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
