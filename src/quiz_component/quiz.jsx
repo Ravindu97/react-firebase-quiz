@@ -89,7 +89,7 @@ const Quiz = () => {
 
   return (
     <div className="container">
-      <Progress total="3" current="1" />
+      <Progress total={questions.length} current={currentQuestion + 1} />
       <Question questions={question} />
       <Answers
         question={question}
