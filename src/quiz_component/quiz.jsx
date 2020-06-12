@@ -44,6 +44,7 @@ const Quiz = () => {
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [userAnswers, setUserAnswers] = useState([]);
   const [error, setError] = useState("");
+  const [showResult, setShowResults] = useState(false);
 
   const question = questionsArray[currentQuestion];
 
@@ -53,6 +54,7 @@ const Quiz = () => {
 
   const handleClick = (e) => {
     setCurrentAnswer(e.target.value);
+    setError("");
   };
 
   const next = () => {
@@ -71,6 +73,7 @@ const Quiz = () => {
       setCurrentQuestion(currentQuestion + 1);
       return;
     }
+    setShowResults(true);
   };
 
   //   console.log(currentQuestion);
@@ -88,43 +91,54 @@ const Quiz = () => {
 
   //  ##########################  keeping track of number of attempts of user
 
-  const [count, setCount] = useState(1);
+  //   const [count, setCount] = useState(1);
 
   //   console.log(count);
 
-  if (count > 3) {
+  //   if (count > 3) {
+  //     return (
+  //       <div className="container">
+  //         {/* <h3>Sorry {props.currentUser}</h3> */}
+  //         <h2>Sorry Your Chances are over</h2>
+  //       </div>
+  //     );
+  //   }
+
+  if (showResult) {
+    return (
+      <div className="container results">
+        <h2>Results</h2>
+      </div>
+    );
+  } else {
     return (
       <div className="container">
-        {/* <h3>Sorry {props.currentUser}</h3> */}
-        <h2>Sorry Your Chances are over</h2>
+        <Progress total={questions.length} current={currentQuestion + 1} />
+        <Question questions={question} />
+        {renderError()}
+        <Answers
+          question={question}
+          currentAnswer={currentAnswer}
+          handleClick={handleClick}
+        />
+        <button className="btn btn-primary" onClick={next}>
+          Confirm and Continue
+        </button>
+
+        {/* <button
+          className="btn btn-primary"
+          onClick={() => setCount((prevCount) => prevCount + 1)}
+        >
+          Try again
+        </button> */}
+        <button
+          className="btn btn-primary"
+          onClick={() => app.auth().signOut()}
+        >
+          Sign out
+        </button>
       </div>
     );
   }
-
-  return (
-    <div className="container">
-      <Progress total={questions.length} current={currentQuestion + 1} />
-      <Question questions={question} />
-      {renderError()}
-      <Answers
-        question={question}
-        currentAnswer={currentAnswer}
-        handleClick={handleClick}
-      />
-      <button className="btn btn-primary" onClick={next}>
-        Confirm and Continue
-      </button>
-
-      <button
-        className="btn btn-primary"
-        onClick={() => setCount((prevCount) => prevCount + 1)}
-      >
-        Try again
-      </button>
-      <button className="btn btn-primary" onClick={() => app.auth().signOut()}>
-        Sign out
-      </button>
-    </div>
-  );
 };
 export default Quiz;
