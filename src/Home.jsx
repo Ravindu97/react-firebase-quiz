@@ -1,5 +1,4 @@
 import React from "react";
-import app from "./base";
 import Quiz from "./quiz_component/quiz";
 import { Redirect } from "react-router";
 import { AuthContext } from "./Auth";
@@ -14,11 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Welcome to the quiz</h1>
-      <div>
-        <Quiz />
-      </div>
-      <button onClick={() => app.auth().signOut()}>Sign out</button>
+      <Quiz />
     </div>
   );
 };
@@ -55,16 +50,6 @@ export default Home;
 
 // const [questions, setQuestions] = useState([]);
 // const [value, setValue] = useState("option_a");
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     const db = app.firestore();
-//     const data = await db.collection("Questions").get();
-
-//     setQuestions(data.docs.map((doc) => doc.data()));
-//   };
-//   fetchData();
-// }, []);
 
 // if (!questions) {
 //   return "Loading ...";

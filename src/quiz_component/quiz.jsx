@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import app from "../base";
+import Progress from "./Progress";
+import Question from "./Question";
+import Answers from "./Answers";
 
 const Quiz = () => {
   let [userData, setUserData] = useState([]);
@@ -33,11 +36,22 @@ const Quiz = () => {
 
   //   console.log(questions);
 
-  //   keeping track of number of attempts of user
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentAnswer, setCurrentAnswer] = useState("");
+
+  const question = questions[currentQuestion];
+
+  //   function to handle the selected answer
+
+  const handleClick = (e) => {
+    setCurrentAnswer(e.target.value);
+  };
+
+  //  ##########################  keeping track of number of attempts of user
 
   const [count, setCount] = useState(1);
 
-  console.log(count);
+  //   console.log(count);
 
   if (count > 3) {
     return (
@@ -49,9 +63,24 @@ const Quiz = () => {
   }
 
   return (
-    <div>
-      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
+    <div className="container">
+      <Progress total="3" current="1" />
+      <Question question={question} />
+      <Answers
+        question={question}
+        currentAnswer={currentAnswer}
+        handleClick={handleClick}
+      />
+      <button className="btn btn-primary">Confirm and Continue</button>
+
+      <button
+        className="btn btn-primary"
+        onClick={() => setCount((prevCount) => prevCount + 1)}
+      >
         Try again
+      </button>
+      <button className="btn btn-primary" onClick={() => app.auth().signOut()}>
+        Sign out
       </button>
     </div>
   );
