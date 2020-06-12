@@ -58,6 +58,11 @@ const Quiz = () => {
   const next = () => {
     const answer = { questionId: question.id, answer: currentAnswer };
 
+    if (!currentAnswer) {
+      setError("please select an option");
+      return;
+    }
+
     userAnswers.push(answer);
     setUserAnswers(userAnswers);
     setCurrentAnswer("");
@@ -71,6 +76,15 @@ const Quiz = () => {
   //   console.log(currentQuestion);
 
   //   console.log(currentAnswer);
+
+  //   rendering the error if user skips an question
+
+  const renderError = () => {
+    if (!error) {
+      return;
+    }
+    return <div className="error">{error}</div>;
+  };
 
   //  ##########################  keeping track of number of attempts of user
 
@@ -91,6 +105,7 @@ const Quiz = () => {
     <div className="container">
       <Progress total={questions.length} current={currentQuestion + 1} />
       <Question questions={question} />
+      {renderError()}
       <Answers
         question={question}
         currentAnswer={currentAnswer}
