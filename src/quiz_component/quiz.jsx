@@ -7,6 +7,7 @@ import Answers from "./Answers";
 const Quiz = () => {
   let [userData, setUserData] = useState([]);
 
+  //   console.log(userData);
   // getting the UserDetails from the database
 
   useEffect(() => {
@@ -45,6 +46,9 @@ const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [error, setError] = useState("");
   const [showResult, setShowResults] = useState(false);
+  //   const [counter, setCounter] = useState(0);
+
+  //   console.log(counter);
 
   //   console.log(userAnswers);
   //   console.log(currentAnswer);
