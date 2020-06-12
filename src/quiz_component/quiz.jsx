@@ -46,6 +46,9 @@ const Quiz = () => {
   const [error, setError] = useState("");
   const [showResult, setShowResults] = useState(false);
 
+  //   console.log(userAnswers);
+  //   console.log(currentAnswer);
+
   const question = questionsArray[currentQuestion];
 
   //   console.log(question);
@@ -76,10 +79,6 @@ const Quiz = () => {
     setShowResults(true);
   };
 
-  //   console.log(currentQuestion);
-
-  //   console.log(currentAnswer);
-
   //   rendering the error if user skips an question
 
   const renderError = () => {
@@ -87,6 +86,37 @@ const Quiz = () => {
       return;
     }
     return <div className="error">{error}</div>;
+  };
+
+  //   checking whether user got the correct answers and displaying them
+
+  const renderResultMark = (question, answer) => {
+    if (question.correct_answer === answer.answer) {
+      return <span className="correct">Correct</span>;
+    }
+    return <span className="failed">Failed</span>;
+  };
+
+  const renderResultsData = () => {
+    return userAnswers.map((answer) => {
+      const question = questionsArray.find(
+        (question) => question.id === answer.questionId
+      );
+      return (
+        <div key={question.id}>
+          {question.question}-{renderResultMark(question, answer)}
+        </div>
+      );
+    });
+  };
+
+  // restarting the quiz
+
+  const restart = () => {
+    setUserAnswers([]);
+    setCurrentAnswer("");
+    setCurrentQuestion(0);
+    setShowResults(false);
   };
 
   //  ##########################  keeping track of number of attempts of user
@@ -108,6 +138,10 @@ const Quiz = () => {
     return (
       <div className="container results">
         <h2>Results</h2>
+        <ul>{renderResultsData()}</ul>
+        <button className="btn btn-primary" onClick={restart}>
+          Restart
+        </button>
       </div>
     );
   } else {
