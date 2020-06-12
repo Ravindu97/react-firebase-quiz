@@ -51,6 +51,8 @@ const Quiz = () => {
     setCurrentAnswer(e.target.value);
   };
 
+  console.log(currentAnswer);
+
   //  ##########################  keeping track of number of attempts of user
 
   const [count, setCount] = useState(1);
