@@ -1,8 +1,9 @@
 import React from "react";
 
 const Question = (props) => {
-  //   console.log(props);
-  let question = props.question?.question;
+  //   console.log(props.questions);
+
+  let question = props.questions?.question;
   //   console.log(question);
 
   return <h1>{question}</h1>;

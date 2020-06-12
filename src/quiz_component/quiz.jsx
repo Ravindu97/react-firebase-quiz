@@ -42,8 +42,12 @@ const Quiz = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState("");
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [error, setError] = useState("");
 
   const question = questionsArray[currentQuestion];
+
+  //   console.log(question);
 
   //   function to handle the selected answer
 
@@ -51,7 +55,22 @@ const Quiz = () => {
     setCurrentAnswer(e.target.value);
   };
 
-  console.log(currentAnswer);
+  const next = () => {
+    const answer = { questionId: question.id, answer: currentAnswer };
+
+    userAnswers.push(answer);
+    setUserAnswers(userAnswers);
+    setCurrentAnswer("");
+
+    if (currentQuestion + 1 < questionsArray.length) {
+      setCurrentQuestion(currentQuestion + 1);
+      return;
+    }
+  };
+
+  //   console.log(currentQuestion);
+
+  //   console.log(currentAnswer);
 
   //  ##########################  keeping track of number of attempts of user
 
@@ -71,13 +90,15 @@ const Quiz = () => {
   return (
     <div className="container">
       <Progress total="3" current="1" />
-      <Question questions={questionsArray} />
+      <Question questions={question} />
       <Answers
         question={question}
         currentAnswer={currentAnswer}
         handleClick={handleClick}
       />
-      <button className="btn btn-primary">Confirm and Continue</button>
+      <button className="btn btn-primary" onClick={next}>
+        Confirm and Continue
+      </button>
 
       <button
         className="btn btn-primary"
