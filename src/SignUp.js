@@ -41,6 +41,14 @@ const SignUp = ({ history }) => {
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value);
         history.push("/");
+
+        // adding user info to the database
+
+        const db = app.firestore();
+        db.collection("user_details").add({
+          uid: app.auth().currentUser.uid,
+          email: email.value,
+        });
       } catch (error) {
         alert(error);
       }
