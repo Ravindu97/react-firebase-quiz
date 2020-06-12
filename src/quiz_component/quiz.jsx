@@ -36,10 +36,14 @@ const Quiz = () => {
 
   //   console.log(questions);
 
+  let questionsArray = questions.map((question) => question);
+
+  //   console.log(questionsArray);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState("");
 
-  const question = questions[currentQuestion];
+  const question = questionsArray[currentQuestion];
 
   //   function to handle the selected answer
 
@@ -65,7 +69,7 @@ const Quiz = () => {
   return (
     <div className="container">
       <Progress total="3" current="1" />
-      <Question question={question} />
+      <Question questions={questionsArray} />
       <Answers
         question={question}
         currentAnswer={currentAnswer}
